@@ -1,38 +1,40 @@
+# chart.py
 import seaborn as sns
 import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
 
-# Generate synthetic data
-np.random.seed(42)
-categories = ["Electronics", "Clothing", "Home & Kitchen", "Sports", "Books"]
-satisfaction = [np.random.normal(loc=75, scale=5) for _ in categories]
-
-df = pd.DataFrame({"Category": categories, "Satisfaction": satisfaction})
-
-# Professional Seaborn style
+# Set Seaborn style
 sns.set_style("whitegrid")
 sns.set_context("talk")
 
-# Plot
-plt.figure(figsize=(8, 8))
-ax = sns.barplot(
-    data=df,
-    x="Category",
-    y="Satisfaction",
-    hue="Category",       # ✅ Fix: use hue
-    palette="Set2",
-    legend=False          # ✅ Avoid duplicate legend
-)
+# Generate synthetic data
+np.random.seed(42)
+categories = ["Electronics", "Clothing", "Home", "Beauty", "Sports"]
+satisfaction_scores = [np.random.normal(loc=80, scale=5, size=50).mean() for _ in categories]
 
-# Titles and labels
-ax.set_title("Average Customer Satisfaction by Product Category", fontsize=16, weight="bold")
-ax.set_ylabel("Satisfaction Score")
-ax.set_xlabel("Product Category")
+# Create DataFrame
+df = pd.DataFrame({
+    "Category": categories,
+    "Satisfaction": satisfaction_scores
+})
 
-# Rotate labels for readability
-plt.xticks(rotation=30)
+# Create figure (8 inches * 64 dpi = 512 pixels)
+plt.figure(figsize=(8, 8), dpi=64)
 
-# Save as 512x512
-plt.savefig("chart.png", dpi=64, bbox_inches="tight")
+# Create barplot
+ax = sns.barplot(x="Category", y="Satisfaction", data=df, palette="Set2")
+
+# Style chart
+ax.set_title("Average Customer Satisfaction by Product Category", fontsize=14, weight="bold")
+ax.set_xlabel("Product Category", fontsize=12)
+ax.set_ylabel("Average Satisfaction Score", fontsize=12)
+
+# Rotate x labels for readability
+plt.xticks(rotation=20)
+
+# Save chart with exact size 512x512
+plt.savefig("chart.png", dpi=64, bbox_inches="tight", pad_inches=0.1)
 plt.close()
+
+print("Chart saved as chart.png with size 512x512 pixels")
