@@ -5,7 +5,11 @@ import marimo
 __generated_with = "0.4.15"
 app = marimo.App()
 
-
+@app.cell
+def __email():
+    import marimo as mo
+    mo.md("**Author Email:** 23f2001985@ds.study.iitm.ac.in")
+    return
 # Cell 1: Importing libraries and loading data
 # This cell initializes the dataset
 @app.cell
