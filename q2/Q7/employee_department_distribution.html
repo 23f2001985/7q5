@@ -40,15 +40,19 @@ data = pd.read_csv("employees.csv")
 finance_count = (data["department"] == "Finance").sum()
 print("Finance department count:", finance_count)
 
-# Create a distribution chart of departments
-counts = data["department"].value_counts().sort_index()
+# ✅ Create histogram of departments (matplotlib hist expects numerical, so we use categorical bins)
+plt.figure(figsize=(8, 6))
+plt.hist(data["department"], bins=len(data["department"].unique()), rwidth=0.8, color="skyblue", edgecolor="black")
+plt.title("Department Distribution (n=100)")
+plt.xlabel("Department")
+plt.ylabel("Frequency")
+plt.xticks(rotation=30, ha="right")
+plt.tight_layout()
 
-plt.figure()
-ax = counts.plot(kind="bar")
-ax.set_title("Department Distribution (n=100)")
-ax.set_xlabel("Department")
-ax.set_ylabel("Count")
-plt.show()</pre>
+# Save visualization
+plt.savefig("department_hist.png")
+plt.show()
+</pre>
   </div>
 </body>
 </html>
